@@ -1,0 +1,62 @@
+﻿procedure Test2;
+begin
+   //Запустить приложение
+  TestedApps.TestEnvironment_TD32.Run(1, true);
+  
+  //Окно после запуска должно быть пустым.
+  aqObject.CheckProperty(Aliases.TestEnvironment_TD32_.FMain.MDIClient, 'ChildCount', cmpEqual, 0);
+  
+  //Развернуть приложение на весь экран
+  Aliases.TestEnvironment_TD32_.FMain.Maximize;
+  
+  //Окно действительно занимает весь экран.
+  aqObject.CheckProperty(Aliases.TestEnvironment_TD32_.FMain, 'Left', cmpLess, 0);
+  aqObject.CheckProperty(Aliases.TestEnvironment_TD32_.FMain, 'Top', cmpLess, 0);
+  
+  //Выбрать раздел "Форма с TreeList".
+  Aliases.TestEnvironment_TD32_.FMain.dxRibbon.ClickItemXY('dxRibbonTab1|[0]|Форма с TreeList', 44, 14);
+  
+  //Окно после запуска не должно быть пустым.
+  aqObject.CheckProperty(Aliases.TestEnvironment_TD32_.FMain.MDIClient, 'ChildCount', cmpGreater, 0);
+  
+  //Свернуть элемент 24
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.wChildView[1].Collapse(2);
+  
+  //Свернуть элемент 17
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.Collapse(1);
+  
+  //****************************************************************************
+  //Изменить атрибут name у элемента 58
+  //****************************************************************************
+  
+  //Clicks the 'wChildView[2]' grid cell at row 1, column 'name'.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.wChildView[3].wChildView[2].ClickCell(1, 'name');
+  
+  //Enters the text 'Lorem ipsum' in the 'TcxCustomInnerTextEdit' text editor.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.TcxMaskEdit.TcxCustomInnerTextEdit.Keys('Lorem ipsum');
+  
+  //****************************************************************************
+  //Удалить значение атрибута name у элемента 25
+  //****************************************************************************
+  
+  //Expands the 1 row of the 'tlTest' tree list.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.Expand(1);
+  
+  //Expands the 2 row of the 'wChildView[1]' tree list.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.wChildView[1].Expand(2);
+  
+  //Clicks the 'wChildView[2]' grid cell at row 0, column 'name'.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.wChildView[1].wChildView[2].ClickCell(0, 'name');
+  
+  //Clicks the 'TcxCustomInnerTextEdit' object.
+  //Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.TcxMaskEdit2.TcxCustomInnerTextEdit.Click(24, 8);
+  
+  //Enters the text '' in the 'TcxCustomInnerTextEdit' text editor.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.TcxMaskEdit2.TcxCustomInnerTextEdit.Keys('[Del]');
+  
+  //Enters '[Enter]' in the 'tlTest' object.
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.FTreeList.tlTest.Keys('[Enter]');
+  
+  //Закрыть вкладку "Форма с Tree List".
+  Aliases.TestEnvironment_TD32_.FMain.MDIClient.Click(146, 914);
+end;
